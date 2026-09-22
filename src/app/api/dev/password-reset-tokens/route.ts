@@ -6,8 +6,8 @@ export async function GET() {
   // Prevent access in production
   if (process.env.NODE_ENV === "production") {
     return NextResponse.json(
-      { error: "This endpoint is only available in development mode" },
-      { status: 403 }
+      { error: "Not found" },
+      { status: 404 }
     );
   }
 

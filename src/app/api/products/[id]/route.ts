@@ -4,10 +4,11 @@ import { handleApiError } from "@/shared/lib/handle-api-error";
 
 export async function GET(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const product = await getProductById(params.id);
+    const { id } = await params;
+    const product = await getProductById(id);
     return NextResponse.json(product);
   } catch (error) {
     return handleApiError(error);

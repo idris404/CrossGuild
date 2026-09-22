@@ -5,14 +5,25 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  ci:
+  quality:
+    name: Quality, tests and build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       CI: true
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/crossguild
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/crossguild_ci
       AUTH_SECRET: ci-placeholder-secret-do-not-use-in-production
+      AUTH_TRUST_HOST: "true"
       NEXTAUTH_SECRET: ci-placeholder-secret-do-not-use-in-production
       NEXTAUTH_URL: http://localhost:3000
 
@@ -22,8 +33,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,8 +43,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Audit production dependencies
+        run: pnpm audit --prod --audit-level high
+
       - name: Generate Prisma Client
-        run: pnpm exec prisma generate
+        run: pnpm prisma:generate
+
+      - name: Validate Prisma schema
+        run: pnpm prisma:validate
 
       - name: Lint
         run: pnpm lint
@@ -48,3 +63,77 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  e2e:
+    name: PostgreSQL migrations and browser E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: true
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/crossguild_ci
+      AUTH_SECRET: ci-placeholder-secret-do-not-use-in-production
+      AUTH_TRUST_HOST: "true"
+      NEXTAUTH_SECRET: ci-placeholder-secret-do-not-use-in-production
+      NEXTAUTH_URL: http://localhost:3000
+      E2E_USER_EMAIL: e2e-user@crossguild.test
+      E2E_USER_PASSWORD: e2e-password-123
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: crossguild_ci
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d crossguild_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        run: pnpm prisma:generate
+
+      - name: Replay production migrations
+        run: pnpm db:migrate:deploy
+
+      - name: Verify migration and schema parity
+        run: >-
+          pnpm exec prisma migrate diff
+          --from-url "$DATABASE_URL"
+          --to-schema-datamodel prisma/schema.prisma
+          --exit-code
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run browser tests
+        run: pnpm test:e2e
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7

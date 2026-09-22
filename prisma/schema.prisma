@@ -256,7 +256,9 @@ model HeroContent {
   highlightedText     String
   description         String
   primaryButtonText   String
+  primaryButtonUrl    String   @default("#top-selling")
   secondaryButtonText String
+  secondaryButtonUrl  String   @default("#new-arrivals")
   backgroundImage     String
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
@@ -268,6 +270,7 @@ model CategoryHeroContent {
   highlightedText String
   description     String
   buttonText      String
+  buttonUrl       String   @default("#categories")
   backgroundImage String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

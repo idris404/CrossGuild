@@ -39,6 +39,11 @@ function loadEnvFile() {
 loadEnvFile();
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000";
+const webServerPort = new URL(baseURL).port || "3000";
+
+if (!/^\d+$/.test(webServerPort)) {
+  throw new Error("PLAYWRIGHT_BASE_URL must contain a valid numeric port.");
+}
 
 export default defineConfig({
   testDir: path.join(__dirname, "e2e"),
@@ -63,7 +68,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm dev",
+    command: `pnpm dev --port ${webServerPort}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

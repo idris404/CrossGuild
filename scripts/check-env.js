@@ -1,59 +1,59 @@
 #!/usr/bin/env node
 
-/**
- * Script de vérification avant déploiement
- * Vérifie que toutes les variables d'environnement nécessaires sont définies
- */
-
 const requiredEnvVars = [
-  "NEXTAUTH_URL",
-  "AUTH_SECRET",
   "DATABASE_URL",
-  "GITHUB_ID",
-  "GITHUB_SECRET",
-  "GOOGLE_ID",
-  "GOOGLE_SECRET",
+  "AUTH_SECRET",
+  "AUTH_TRUST_HOST",
+  "NEXTAUTH_URL",
 ];
 
-const optionalEnvVars = [
-  "RESEND_API_KEY",
-  "EMAIL_FROM",
-  "CLOUDINARY_CLOUD_NAME",
-  "CLOUDINARY_API_KEY",
-  "CLOUDINARY_API_SECRET",
+const optionalGroups = [
+  ["GitHub OAuth", ["GITHUB_ID", "GITHUB_SECRET"]],
+  ["Google OAuth", ["GOOGLE_ID", "GOOGLE_SECRET"]],
+  ["Transactional email", ["RESEND_API_KEY", "EMAIL_FROM"]],
+  [
+    "Cloudinary uploads",
+    [
+      "CLOUDINARY_CLOUD_NAME",
+      "CLOUDINARY_API_KEY",
+      "CLOUDINARY_API_SECRET",
+    ],
+  ],
 ];
 
-console.log("🔍 Vérification des variables d'environnement...\n");
+console.log("Checking deployment environment...\n");
 
 let hasErrors = false;
 
-// Vérification des variables requises
-console.log("📋 Variables requises:");
+console.log("Required variables:");
 requiredEnvVars.forEach((varName) => {
   const value = process.env[varName];
-  const status = value ? "✅" : "❌";
-  console.log(`  ${status} ${varName}: ${value ? "Définie" : "MANQUANTE"}`);
+  console.log(`  ${value ? "OK" : "MISSING"} ${varName}`);
   if (!value) hasErrors = true;
 });
 
-console.log("\n📋 Variables optionnelles:");
-optionalEnvVars.forEach((varName) => {
-  const value = process.env[varName];
-  const status = value ? "✅" : "⚠️";
-  console.log(`  ${status} ${varName}: ${value ? "Définie" : "Non définie"}`);
+console.log("\nOptional integrations:");
+optionalGroups.forEach(([name, variables]) => {
+  const configured = variables.filter((varName) => process.env[varName]);
+
+  if (configured.length === 0) {
+    console.log(`  DISABLED ${name}`);
+    return;
+  }
+
+  if (configured.length !== variables.length) {
+    const missing = variables.filter((varName) => !process.env[varName]);
+    console.log(`  INVALID ${name}: missing ${missing.join(", ")}`);
+    hasErrors = true;
+    return;
+  }
+
+  console.log(`  OK ${name}`);
 });
 
-console.log("\n🌍 Configuration d'environnement:");
-console.log(`  NODE_ENV: ${process.env.NODE_ENV || "non défini"}`);
-console.log(`  NEXTAUTH_URL: ${process.env.NEXTAUTH_URL || "non défini"}`);
-
 if (hasErrors) {
-  console.log(
-    "\n❌ Erreur: Des variables d'environnement requises sont manquantes!"
-  );
-  console.log("💡 Vérifiez votre fichier .env.local ou vos variables Vercel.");
+  console.error("\nEnvironment validation failed.");
   process.exit(1);
-} else {
-  console.log("\n✅ Toutes les variables requises sont définies!");
-  console.log("🚀 Prêt pour le déploiement.");
 }
+
+console.log("\nEnvironment validation passed.");

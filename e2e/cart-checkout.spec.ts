@@ -17,10 +17,7 @@ test.describe("Cart and checkout flow", () => {
     await expect(page.getByRole("heading", { name: "All Products" })).toBeVisible();
 
     const productLink = page.getByRole("link", { name: "Learn More" }).first();
-    const hasProducts = (await productLink.count()) > 0;
-
-    test.skip(!hasProducts, "No published products available for cart E2E test");
-
+    await expect(productLink).toBeVisible();
     await productLink.click();
     await expect(page.getByRole("button", { name: /Add to Cart/i })).toBeVisible();
 

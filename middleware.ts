@@ -14,6 +14,13 @@ function matchesRoute(pathname: string, routes: string[]) {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  if (
+    process.env.NODE_ENV === "production" &&
+    (pathname === "/dev" || pathname.startsWith("/dev/"))
+  ) {
+    return new NextResponse(null, { status: 404 });
+  }
+
   if (pathname === "/auth/signin" || pathname.startsWith("/auth/signin/")) {
     return NextResponse.redirect(new URL("/login", req.url));
   }

@@ -8,14 +8,14 @@ const DEFAULT_OFFERS = [
     title: "Holiday Special",
     description: "Get 30% Off",
     buttonLabel: "Free Delivery",
-    image: "/offers/offer1.png",
+    image: "/sale.svg",
   },
   {
     id: "default2",
     title: "New Arrivals",
     description: "Limited Edition Gear",
     buttonLabel: "Free Delivery",
-    image: "/offers/offer2.png",
+    image: "/sale.svg",
   },
 ];
 
@@ -38,7 +38,7 @@ async function resolveOfferImage(image?: File | null) {
     return uploadImage(image, { folder: "crossguild/offers" });
   }
 
-  return "/offers/default.png";
+  return "/sale.svg";
 }
 
 export async function getOffers() {
