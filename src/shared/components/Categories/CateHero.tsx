@@ -59,7 +59,7 @@ const HeroSection = () => {
   }
 
   return (
-    <section className="relative isolate mt-20 flex min-h-[310px] flex-col items-center justify-center px-4 py-16 text-center text-white md:min-h-[340px]">
+    <section className="relative isolate flex min-h-[310px] flex-col items-center justify-center px-4 py-16 text-center text-white md:min-h-[340px]">
       {/* Image de fond avec overlay */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center"

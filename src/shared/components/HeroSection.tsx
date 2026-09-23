@@ -59,7 +59,7 @@ export const HeroSection = () => {
 
   if (loading) {
     return (
-      <div className="relative mt-20 min-h-[500px] animate-pulse bg-muted/30">
+      <div className="relative min-h-[500px] animate-pulse bg-muted/30">
         <div className="h-8 w-64 bg-muted rounded mb-4"></div>
         <div className="h-16 w-96 bg-muted rounded mb-4"></div>
         <div className="h-24 w-full max-w-3xl bg-muted rounded mb-6"></div>
@@ -72,7 +72,7 @@ export const HeroSection = () => {
   }
 
   return (
-    <section className="relative isolate mt-20 flex min-h-[500px] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center text-white md:min-h-[540px]">
+    <section className="relative isolate flex min-h-[500px] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center text-white md:min-h-[540px]">
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center"
         style={{ backgroundImage: `url(${content.backgroundImage})` }}

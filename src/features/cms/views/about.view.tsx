@@ -18,7 +18,7 @@ export default function AboutView() {
   return (
     <div className="bg-background flex flex-col">
       {/* Hero Section */}
-      <section className="relative mt-20 flex h-[340px] w-full items-center justify-center md:h-[380px]">
+      <section className="relative flex h-[340px] w-full items-center justify-center md:h-[380px]">
         <Image
           src="/about-bg.png"
           alt="Gaming keyboard background"

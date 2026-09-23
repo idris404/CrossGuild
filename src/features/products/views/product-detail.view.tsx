@@ -30,7 +30,7 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
   } = useProductDetail(product);
 
   return (
-    <div className="cg-container mt-20 py-8">
+    <div className="cg-container py-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 py-4 md:flex-row">
         <div className="w-full md:w-1/2 flex justify-center">
           <ProductGallery
