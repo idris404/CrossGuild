@@ -104,9 +104,9 @@ export function OrderHistory({
 }: OrderHistoryProps) {
   return (
     <>
-      <Card>
+      <Card className="border-0 bg-transparent shadow-none">
         <CardHeader>
-          <CardTitle>Order History</CardTitle>
+          <CardTitle className="text-lg font-bold uppercase text-accent">Order History</CardTitle>
           <CardDescription>View all your past orders.</CardDescription>
         </CardHeader>
         <CardContent>
@@ -121,17 +121,17 @@ export function OrderHistory({
               <Table>
                 <TableCaption>List of your orders</TableCaption>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Order ID</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                  <TableRow className="border-b border-primary hover:bg-transparent">
+                    <TableHead className="font-bold uppercase text-accent">Order</TableHead>
+                    <TableHead className="font-bold uppercase text-accent">Date</TableHead>
+                    <TableHead className="font-bold uppercase text-accent">Payment Status</TableHead>
+                    <TableHead className="font-bold uppercase text-accent">Order Status</TableHead>
+                    <TableHead className="text-right font-bold uppercase text-accent">Total</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {orders.map((order) => (
-                    <TableRow key={order.id}>
+                    <TableRow key={order.id} className="border-b border-primary/60">
                       <TableCell className="font-medium">
                         {order.orderNumber || "N/A"}
                       </TableCell>
@@ -140,14 +140,13 @@ export function OrderHistory({
                           ? new Date(order.createdAt).toLocaleDateString()
                           : "N/A"}
                       </TableCell>
-                      <TableCell>
-                        {formatOrderAmount(order.totalAmount)} €
-                      </TableCell>
+                      <TableCell>In progress</TableCell>
                       <TableCell>
                         <OrderStatusBadge status={order.status} />
                       </TableCell>
                       <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
+                        <div className="flex items-center justify-end gap-3">
+                          <span className="font-medium">{formatOrderAmount(order.totalAmount)} €</span>
                           <Button
                             variant="outline"
                             size="sm"

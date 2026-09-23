@@ -1,142 +1,92 @@
 "use client";
 
-import {
-  Footer,
-  FooterColumn,
-  FooterBottom,
-  FooterContent,
-} from "@/shared/components/ui/footer";
+import Image from "next/image";
+import Link from "next/link";
+import { InstagramLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import crossguild from "@/public/CrossGuild.svg";
 import crossguildDark from "@/public/CrossGuild-dark.svg";
 import paye from "@/public/paye.svg";
-import {
-  DiscordLogoIcon,
-  InstagramLogoIcon,
-  TwitterLogoIcon,
-} from "@radix-ui/react-icons";
-import Image from "next/image";
-import { FaYoutube } from "react-icons/fa";
+import { useTheme } from "next-themes";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
-import { useTheme } from "next-themes";
-import Link from "next/link";
+
+const primaryLinks = [
+  ["Home", "/"],
+  ["Categories", "/categories"],
+  ["About Us", "/about"],
+  ["FAQ", "/#faq"],
+] as const;
+
+const navigationLinks = [
+  ["Search", "/products"],
+  ["All Collections", "/categories"],
+  ["All Products", "/products"],
+  ["Blog Page", "/contact"],
+] as const;
+
+function FooterLinks({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
+  return (
+    <div>
+      <h3 className="mb-4 text-base font-bold">{title}</h3>
+      <nav className="flex flex-col gap-3 text-sm">
+        {links.map(([label, href]) => (
+          <Link key={`${title}-${label}`} href={href} className="w-fit transition-colors hover:text-accent hover:underline">
+            {label}
+          </Link>
+        ))}
+      </nav>
+    </div>
+  );
+}
 
 export default function FooterSection() {
   const { theme } = useTheme();
 
   return (
-    <footer className=" w-4/5 mx-auto px-4">
-      <div className="max-w-container mx-auto">
-        <Footer className="border-t-2 border-primary pt-8">
-          <FooterContent className="sm:grid-cols-2 md:grid-cols-3">
-            <FooterColumn className="col-span-2 flex-row items-center justify-between gap-8 border-b pb-8 md:col-span-1 md:flex-col md:items-start md:justify-start md:border-b-0">
-              <div className="flex items-center gap-2">
-                <Image
-                  src={theme === "dark" ? crossguildDark : crossguild}
-                  alt="CrossGuild"
-                  width={40}
-                />
-                <h3 className="text-xl font-bold">CroosGuild</h3>
+    <footer className="cg-container mt-10">
+      <div className="border-t border-primary py-7">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.25fr_.8fr_.8fr_.8fr_1.55fr]">
+          <div className="flex gap-5">
+            <Image src={theme === "dark" ? crossguildDark : crossguild} alt="CrossGuild" width={74} height={74} className="h-[74px] w-[74px] object-contain" />
+            <div>
+              <h3 className="mb-4 text-base font-bold">Office</h3>
+              <div className="space-y-3 text-sm">
+                <p>Oran, Algeria 31000</p>
+                <p>213541772380+</p>
+                <p>CrossGuild@contact.com</p>
               </div>
-              <div className="ml-2.5 flex gap-4 sm:ml-0"></div>
-            </FooterColumn>
-            <FooterColumn>
-              <h3 className="text-md  pt-1 font-semibold">Navigation</h3>
-              <Link
-                href="/categories"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                Categories
-              </Link>
-              <Link
-                href="/products"
-                className=" hover:text-primary text-muted-foreground text-sm"
-              >
-                Products
-              </Link>
-              <Link
-                href="/about"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                About
-              </Link>
-            </FooterColumn>
-            <FooterColumn>
-              <h3 className="text-md pt-1 font-semibold">Quick Links</h3>
-              <Link
-                href="/about"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                About
-              </Link>
-              <Link
-                href="/profile"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                Profile
-              </Link>
-              <Link
-                href="/contact"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                Blog
-              </Link>
-            </FooterColumn>
-
-            <FooterColumn>
-              <h3 className="text-md pt-1 font-semibold">Navigation</h3>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary text-sm"
-              >
-                Cookie Policy
-              </Link>
-            </FooterColumn>
-            <FooterColumn>
-              <h3 className="text-md pt-1 font-semibold">Contact</h3>
-              <div className="flex items-center gap-4">
-                <InstagramLogoIcon className="cursor-pointer" />
-                <DiscordLogoIcon className="cursor-pointer" />
-                <FaYoutube className="cursor-pointer" />
-                <TwitterLogoIcon className="cursor-pointer" />
-              </div>
-              <div className="flex justify-left items-center">
-                <Input
-                  type="email"
-                  placeholder="Your Email"
-                  className="p-2 h-10 w-3/6 bg-white text-lg border border-gray-400 rounded-l-lg rounded-r-none"
-                />
-                <Button className="p-2 h-10 text-lg bg-accent text-white rounded-r-lg rounded-l-none">
-                  Subscribe
-                </Button>
-              </div>
-              <Image src={paye} alt="Paye" width={150} />
-            </FooterColumn>
-          </FooterContent>
-          <FooterBottom className="border-0">
-            <div>© 2025 CrossGuild. All rights reserved.</div>
-            <div className="flex items-center gap-4">
-              <Link href="#" className="cursor-pointer hover:text-primary">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="cursor-pointer hover:text-primary">
-                Legal Notice
-              </Link>
             </div>
-          </FooterBottom>
-        </Footer>
+          </div>
+
+          <FooterLinks title="Quick Links" links={primaryLinks} />
+          <FooterLinks title="Navigation" links={navigationLinks} />
+          <FooterLinks title="Quick Links" links={primaryLinks} />
+
+          <div>
+            <h3 className="mb-3 text-base font-bold">Share</h3>
+            <div className="mb-4 flex items-center gap-4">
+              <Link href="#" aria-label="Instagram" className="transition-colors hover:text-accent"><InstagramLogoIcon /></Link>
+              <Link href="#" aria-label="YouTube" className="transition-colors hover:text-accent"><FaYoutube /></Link>
+              <Link href="#" aria-label="Facebook" className="transition-colors hover:text-accent"><FaFacebookF /></Link>
+              <Link href="#" aria-label="Twitter" className="transition-colors hover:text-accent"><TwitterLogoIcon /></Link>
+            </div>
+            <h3 className="mb-3 text-base font-bold">Subscribe To NewsLetter</h3>
+            <div className="flex">
+              <Input type="email" aria-label="Footer newsletter email" placeholder="Your Email" className="h-9 rounded-r-none border-gray-300 bg-white text-black" />
+              <Button className="h-9 rounded-l-none px-4 text-xs">Subscribe</Button>
+            </div>
+            <Image src={paye} alt="Accepted payment methods" width={145} className="mt-4" />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-3 border-t border-primary py-3 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2024 CrossGuild. All rights reserved.</p>
+        <div className="flex gap-8">
+          <Link href="#" className="hover:text-accent">Privacy Policy</Link>
+          <Link href="#" className="hover:text-accent">Legal Notice</Link>
+        </div>
       </div>
     </footer>
   );

@@ -6,10 +6,11 @@ import Brands from "@/shared/components/Categories/Brands";
 
 const page = () => {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col">
       <Catehero />
       <CategoriesSection />
       <Brands />
+      <p className="mt-2 text-center text-lg font-bold uppercase text-accent">Recommended Products</p>
       <TopSellingGamingGear />
     </div>
   );

@@ -74,18 +74,15 @@ export default function CartView() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 pt-28">
-      <div className="max-w-6xl mx-auto p-4">
+    <div className="cg-container pb-8 pt-28">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="mb-6"
+          className="mb-7 text-sm text-muted-foreground"
         >
-          <h1 className="text-3xl font-bold mb-2">Your Cart</h1>
-          <p className="text-muted-foreground">
-            {items.length} {items.length === 1 ? "item" : "items"} in your cart
-          </p>
+          Home <span className="mx-2">›</span> Cart
         </motion.div>
 
         {items.length === 0 ? (
@@ -109,8 +106,8 @@ export default function CartView() {
             </Button>
           </motion.div>
         ) : (
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
+          <div>
+            <div>
               <CartItemsList
                 items={items}
                 updatingItemId={isUpdating}
@@ -123,8 +120,11 @@ export default function CartView() {
               <CartSummary subtotal={subtotal} />
             </div>
 
-            <div className="lg:col-span-1">
-              <Card className="sticky top-4">
+            <details className="mt-5 max-w-xl">
+              <summary className="inline-flex h-11 cursor-pointer list-none items-center rounded-md bg-accent px-8 font-semibold text-white shadow-md transition-colors hover:bg-[#4f38d8]">
+                Buy It Now
+              </summary>
+              <Card className="mt-5">
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <CreditCard className="h-5 w-5 text-accent" />
@@ -143,7 +143,7 @@ export default function CartView() {
                   />
                 </CardContent>
               </Card>
-            </div>
+            </details>
           </div>
         )}
       </div>

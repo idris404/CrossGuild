@@ -50,7 +50,7 @@ export function ProductGrid({ items, variant = "category" }: ProductGridProps) {
 
   return (
     <div className="space-y-6">
-      <div className="relative">
+      <div className="relative rounded-md border border-primary bg-muted/40 p-3">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <Search className="h-4 w-4 text-gray-400" />
         </div>
@@ -62,7 +62,7 @@ export function ProductGrid({ items, variant = "category" }: ProductGridProps) {
             setSearchTerm(e.target.value);
             setCurrentPage(1);
           }}
-          className="pl-10"
+          className="border-0 bg-white pl-10 shadow-none"
         />
       </div>
 
@@ -80,8 +80,8 @@ export function ProductGrid({ items, variant = "category" }: ProductGridProps) {
           <div
             className={
               variant === "all-products"
-                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6"
-                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                ? "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+                : "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
             }
           >
             {currentItems.map((item) => (
@@ -96,7 +96,7 @@ export function ProductGrid({ items, variant = "category" }: ProductGridProps) {
           </div>
 
           {totalPages > 1 && (
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="mt-8 flex justify-end gap-2 rounded-md border border-primary bg-muted/40 p-3">
               <Button
                 variant="outline"
                 onClick={() => handlePageChange(currentPage - 1)}

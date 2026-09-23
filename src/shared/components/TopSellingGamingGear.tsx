@@ -26,7 +26,19 @@ const ProductSkeleton = () => (
   </div>
 );
 
-export const TopSellingGamingGear = () => {
+type TopSellingGamingGearProps = {
+  title?: string;
+  highlightedText?: string;
+  showLink?: boolean;
+  sectionId?: string;
+};
+
+export const TopSellingGamingGear = ({
+  title = "Top-Selling",
+  highlightedText = "Gaming Gear",
+  showLink = true,
+  sectionId = "top-selling",
+}: TopSellingGamingGearProps = {}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -51,35 +63,29 @@ export const TopSellingGamingGear = () => {
   }, []);
 
   return (
-    <section id="top-selling" className="py-20 bg-gradient-to-b from-transparent via-purple-50/20 to-transparent dark:via-purple-950/10">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+    <section id={sectionId} className="cg-section">
+      <div className="cg-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4"
+          className="mb-8 flex items-end justify-between gap-4"
         >
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Top-Selling <span className="text-accent">Gaming Gear</span>
+            <h2 className="cg-title">
+              {title} <span className="text-accent">{highlightedText}</span>
             </h2>
-            <p className="text-muted-foreground mt-2">
-              Découvrez nos produits les plus populaires
-            </p>
           </div>
-          <Link
+          {showLink && <Link
             href="/products"
-            className="text-accent hover:text-accent/80 font-semibold flex items-center gap-2 group transition-all duration-300"
+            className="shrink-0 font-semibold text-accent underline decoration-primary underline-offset-4 transition-colors hover:text-[#4f38d8]"
           >
-            Voir Plus
-            <span className="group-hover:translate-x-1 transition-transform duration-300">
-              →
-            </span>
-          </Link>
+            See More
+          </Link>}
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {isLoading ? (
             <>
               {[...Array(4)].map((_, index) => (

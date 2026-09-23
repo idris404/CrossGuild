@@ -30,8 +30,7 @@ const Faqs = () => {
       try {
         const publishedFaqs = await fetchPublishedFaqs();
         setFaqs(publishedFaqs);
-      } catch (error) {
-        console.error("Failed to fetch FAQs", error);
+      } catch {
         setFaqs([]);
       } finally {
         setLoading(false);
@@ -101,26 +100,26 @@ const Faqs = () => {
   const displayFaqs = faqs && faqs.length > 0 ? faqs : defaultFaqs;
 
   return (
-    <div className="my-32 max-w-5xl mx-auto mt-10 p-4 sm:p-6 md:mt-20 rounded-lg">
+    <section id="faq" className="cg-section mx-auto w-full max-w-3xl px-4 sm:px-6">
       {/* Header Section */}
       <motion.div
-        className="text-center mb-12"
+        className="mb-8 text-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeInVariant}
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
-        <h1 className="bg-gradient-to-r from-accent via-primary to-accent text-3xl sm:text-4xl md:text-5xl font-bold inline-block bg-clip-text text-transparent animate-gradient">
-          Questions Fréquentes
+        <h1 className="inline-block text-3xl font-bold text-foreground sm:text-4xl">
+          FAQ&apos;s
         </h1>
-        <p className="text-base sm:text-lg md:text-xl text-muted-foreground mt-3">
-          Trouvez rapidement des réponses à vos questions
+        <p className="mt-3 text-base text-foreground/80 sm:text-lg">
+          Providing answers to your questions
         </p>
       </motion.div>
 
       {/* Accordion Section */}
-      <Accordion type="single" collapsible className="space-y-4">
+      <Accordion type="single" collapsible className="space-y-6">
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
@@ -141,10 +140,10 @@ const Faqs = () => {
             >
               <AccordionItem
                 value={faq.id}
-                className="border-2 border-accent/20 hover:border-accent/50 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
+                className="overflow-hidden rounded-md border-2 border-primary bg-background transition-colors hover:border-accent"
               >
                 <AccordionTrigger
-                  className="w-full flex justify-between items-center text-left text-base sm:text-lg font-semibold p-5 transition-all bg-background hover:bg-accent/5"
+                  className="flex min-h-16 w-full items-center justify-between bg-background p-5 text-left text-base font-bold transition-colors hover:bg-purple-50 dark:hover:bg-accent/10 sm:text-lg"
                   onClick={() => handleToggle(faq.id)}
                 >
                   <span className="pr-4">
@@ -170,9 +169,9 @@ const Faqs = () => {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
+                      className="overflow-hidden border-t border-primary/40"
                     >
-                      <AccordionContent className="p-5 text-sm sm:text-base md:text-lg text-foreground/90 bg-gradient-to-br from-muted/50 to-muted leading-relaxed">
+                      <AccordionContent className="bg-background p-5 text-center text-sm leading-relaxed text-foreground/90 sm:text-base">
                         {faq.answer}
                       </AccordionContent>
                     </m.div>
@@ -186,26 +185,23 @@ const Faqs = () => {
 
       {/* Contact Section */}
       <motion.div
-        className="mt-12 p-6 bg-gradient-to-br from-accent/5 to-primary/5 rounded-xl border border-accent/10"
+        className="mt-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeInVariant}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <h3 className="text-xl font-bold mb-4 text-foreground">
-          Vous avez d&apos;autres questions ?
-        </h3>
         <textarea
-          className="w-full resize-none h-28 sm:h-32 md:h-36 p-4 border-2 border-border focus:border-accent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/20 bg-background text-foreground transition-all duration-300"
-          placeholder="Posez votre question ici..."
+          className="h-40 w-full resize-none rounded-md border-2 border-foreground bg-background p-5 text-foreground transition-colors placeholder:text-foreground/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+          placeholder="Ask us what you want to know..."
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
         ></textarea>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-4">
           <div className="flex-1">
-            <p className="text-sm text-muted-foreground">
-              📧 Nous répondrons à votre question par email sous 48 heures.
+            <p className="text-sm text-foreground/80">
+              We will answer your question via email within 48 hours.
             </p>
             {messageSent && (
               <motion.p
@@ -213,20 +209,20 @@ const Faqs = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-2 text-sm text-green-600 dark:text-green-400 font-medium flex items-center gap-2"
               >
-                ✓ Votre question a été envoyée avec succès !
+                Your question has been sent successfully.
               </motion.p>
             )}
           </div>
 
           <button
             onClick={handleSend}
-            className="px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-lg transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/30 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent active:scale-95"
+            className="rounded-md bg-accent px-6 py-2.5 font-semibold text-white shadow-md transition-colors hover:bg-[#4f38d8] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
           >
-            Envoyer
+            Send
           </button>
         </div>
       </motion.div>
-    </div>
+    </section>
   );
 };
 

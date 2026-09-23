@@ -56,10 +56,10 @@ export default function ProductActions({
   const isDisabled = product.quantity === 0 || isAddingToCart || isPending;
 
   return (
-    <div className="mt-8 space-y-4">
+    <div className="mt-6 space-y-3">
       <div className="flex flex-col sm:flex-row gap-4">
         <Button
-          className="flex-1 bg-primary text-primary-foreground font-bold py-4 px-8 rounded-lg hover:bg-primary/90 transition-colors"
+          className="h-12 flex-1 bg-accent px-8 font-bold text-white hover:bg-[#4f38d8]"
           disabled={isDisabled}
           onClick={onBuyNow}
         >
@@ -70,16 +70,14 @@ export default function ProductActions({
                 Processing...
               </span>
             ) : (
-              <span className="flex items-center font-bold text-lg">
-                🚀 Buy Now
-              </span>
+              <span className="flex items-center font-bold">Buy It Now</span>
             )}
           </div>
         </Button>
 
         <Button
           variant="outline"
-          className="flex-1 font-bold py-4 px-8 rounded-lg"
+          className="h-12 flex-1 border-2 border-accent px-8 font-bold"
           disabled={isDisabled}
           onClick={onAddToCart}
         >
@@ -90,7 +88,7 @@ export default function ProductActions({
                 Adding...
               </span>
             ) : (
-              <div className="flex items-center font-bold text-lg">
+              <div className="flex items-center font-bold">
                 <ShoppingCart className="mr-3 h-5 w-5" />
                 Add to Cart
               </div>
@@ -102,7 +100,7 @@ export default function ProductActions({
       <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
         <Button
           variant="outline"
-          className="flex-1 font-bold py-4 px-8 rounded-lg"
+          className="h-10 flex-1 border-primary px-4 text-sm font-bold"
           disabled={isAddingToWishlist}
           onClick={onToggleWishlist}
         >

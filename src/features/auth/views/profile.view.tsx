@@ -2,10 +2,8 @@
 
 import { Suspense } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { Home } from "lucide-react";
-import { Button } from "@/shared/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
+import { Mail, MapPin, Phone, User } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { ProfileInfo } from "@/features/auth/components/profile-info.component";
 import { ProfileSettings } from "@/features/auth/components/profile-settings.component";
 import { OrderHistory } from "@/features/auth/components/order-history.component";
@@ -13,10 +11,6 @@ import { useProfile } from "@/features/auth/hooks/use-profile.hook";
 import { useOrders } from "@/features/auth/hooks/use-orders.hook";
 
 function ProfileContent() {
-  const searchParams = useSearchParams();
-  const defaultTab =
-    searchParams?.get("tab") === "orders" ? "orders" : "personal-info";
-
   const {
     session,
     status,
@@ -39,24 +33,35 @@ function ProfileContent() {
   }
 
   return (
-    <div className="container mx-auto py-10">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">My Profile</h1>
-        <Link href="/">
-          <Button variant="outline" className="flex gap-2 items-center">
-            <Home size={18} />
-            <span>Home</span>
-          </Button>
-        </Link>
+    <div className="cg-container pb-10 pt-28">
+      <div className="mb-7 text-sm text-muted-foreground">
+        <Link href="/" className="hover:text-accent">Home</Link> <span className="mx-2">›</span> Account
       </div>
 
-      <Tabs defaultValue={defaultTab} className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="personal-info">Personal Information</TabsTrigger>
-          <TabsTrigger value="orders">My Orders</TabsTrigger>
-        </TabsList>
+      <div className="mb-10 grid gap-8 lg:grid-cols-[1fr_.8fr]">
+        <section>
+          <h1 className="mb-5 text-lg font-bold uppercase text-accent">Account Informations :</h1>
+          <div className="space-y-4 text-base">
+            <p className="flex items-center gap-3"><User className="h-5 w-5" /><strong>Name :</strong> <span className="text-muted-foreground">{session?.user?.name || personalInfoForm.getValues("name") || "—"}</span></p>
+            <p className="flex items-center gap-3"><Mail className="h-5 w-5" /><strong>E-mail :</strong> <span className="text-muted-foreground">{session?.user?.email || personalInfoForm.getValues("email") || "—"}</span></p>
+            <p className="flex items-center gap-3"><MapPin className="h-5 w-5" /><strong>Your Address :</strong> <span className="text-muted-foreground">{personalInfoForm.getValues("city") || "—"}</span></p>
+            <p className="flex items-center gap-3"><Phone className="h-5 w-5" /><strong>Phone Number :</strong> <span className="text-muted-foreground">{personalInfoForm.getValues("phone") || "—"}</span></p>
+          </div>
+        </section>
 
-        <TabsContent value="personal-info" className="space-y-6">
+        <section className="h-fit rounded-md border-2 border-accent bg-background">
+          <h2 className="border-b-2 border-accent px-4 py-2 text-lg font-semibold">Account Settings</h2>
+          <ul className="space-y-2 px-6 py-4 text-muted-foreground">
+            <li><a href="#order-history" className="hover:text-accent">• Order history</a></li>
+            <li><Link href="/wishlist" className="hover:text-accent">• Edit your favorites</Link></li>
+            <li><button onClick={() => signOut()} className="hover:text-accent">• Logout</button></li>
+          </ul>
+        </section>
+      </div>
+
+      <details className="mb-10">
+        <summary className="w-fit cursor-pointer font-semibold text-accent underline underline-offset-4">Edit account information</summary>
+        <div className="mt-5 grid gap-6 lg:grid-cols-2">
           <ProfileInfo
             form={personalInfoForm}
             currentImage={session?.user?.image}
@@ -72,9 +77,10 @@ function ProfileContent() {
             isChangingPassword={isChangingPassword}
             onSubmit={onPasswordChangeSubmit}
           />
-        </TabsContent>
+        </div>
+      </details>
 
-        <TabsContent value="orders">
+      <section id="order-history">
           <OrderHistory
             orders={ordersState.orders}
             isLoading={ordersState.isLoading}
@@ -91,8 +97,7 @@ function ProfileContent() {
             onPageChange={ordersState.fetchPage}
             isCancelling={ordersState.isCancelling}
           />
-        </TabsContent>
-      </Tabs>
+      </section>
     </div>
   );
 }

@@ -34,20 +34,17 @@ export default function ReviewList({
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="mb-6 flex items-center justify-between">
         <div>
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+          <h3 className="text-lg font-bold text-foreground">
             {reviews.length} {reviews.length === 1 ? "Review" : "Reviews"}
           </h3>
-          <p className="text-sm text-muted-foreground mt-1">
-            Authentic feedback from verified customers
-          </p>
         </div>
         <Select
           value={sortOption}
           onValueChange={(value) => setSortOption(value as ReviewSortOption)}
         >
-          <SelectTrigger className="w-[200px] border-2 border-accent/20 hover:border-accent/40 transition-colors">
+          <SelectTrigger className="w-[180px] border-2 border-primary hover:border-accent">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
@@ -59,7 +56,7 @@ export default function ReviewList({
       </div>
 
       {isLoading ? (
-        <div className="space-y-6">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[...Array(3)].map((_, i) => (
             <Card key={i} className="animate-pulse border-2 border-muted/50">
               <CardContent className="p-6">

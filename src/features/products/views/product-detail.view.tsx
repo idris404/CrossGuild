@@ -30,8 +30,8 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
   } = useProductDetail(product);
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-20">
-      <div className="flex flex-col md:flex-row gap-12 max-w-7xl mx-auto bg-gradient-to-br from-background via-background to-muted/5 rounded-3xl p-8 shadow-2xl border border-accent/10">
+    <div className="cg-container mt-20 py-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10 py-4 md:flex-row">
         <div className="w-full md:w-1/2 flex justify-center">
           <ProductGallery
             product={product}
@@ -46,8 +46,7 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
           />
         </div>
 
-        <div className="w-full md:w-1/2 max-w-[500px] relative">
-          <div className="absolute -top-6 -right-6 w-40 h-40 bg-gradient-to-bl from-accent/5 to-primary/5 rounded-full blur-3xl" />
+        <div className="relative w-full max-w-[560px] md:w-1/2">
           <ProductInfo product={product} averageRating={averageRating} />
           <ProductActions
             product={product}
@@ -63,11 +62,8 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
         </div>
       </div>
 
-      <div className="mt-16">
-        <RelatedProducts />
-      </div>
-
       <ProductReviewsSection productId={product.id} productName={product.name} />
+      <RelatedProducts />
     </div>
   );
 }

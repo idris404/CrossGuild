@@ -43,7 +43,7 @@ export function CategoryProductGrid({
       : "No items match your filters.";
 
   return (
-    <div className="flex flex-col md:flex-row gap-8">
+    <div className="flex flex-col gap-6 md:flex-row md:gap-0">
       <ProductFilters
         uniqueBrands={uniqueBrands}
         uniqueCategories={uniqueCategories}
@@ -54,8 +54,8 @@ export function CategoryProductGrid({
         onFiltersChange={handleFiltersChange}
       />
 
-      <section className="w-full md:w-3/4">
-        <div className="mb-4">
+      <section className="w-full md:w-3/4 md:pl-6">
+        <div className="mb-4 rounded-md border border-primary bg-muted/40 px-4 py-3">
           <p className="text-sm text-gray-500">{countLabel}</p>
         </div>
 

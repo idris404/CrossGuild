@@ -11,12 +11,14 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Faqs from "@/shared/components/fasq";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
 
 export default function AboutView() {
   return (
     <div className="bg-background flex flex-col">
       {/* Hero Section */}
-      <section className="mt-20 relative w-full h-[380px] md:h-[420px] flex items-center justify-center">
+      <section className="relative mt-20 flex h-[340px] w-full items-center justify-center md:h-[380px]">
         <Image
           src="/about-bg.png"
           alt="Gaming keyboard background"
@@ -33,7 +35,7 @@ export default function AboutView() {
           </h1>
           <a
             href="#mission"
-            className="inline-block text-white px-6 py-2 rounded-md bg-accent text-accent-foreground font-semibold shadow hover:bg-accent/90 transition"
+            className="inline-block rounded-md border-2 border-primary bg-transparent px-6 py-2 font-semibold text-white shadow transition-colors hover:bg-primary"
           >
             Learn More About CrossGuild
           </a>
@@ -41,11 +43,11 @@ export default function AboutView() {
       </section>
 
       {/* How We Make Gaming Better */}
-      <section className="bg-background py-12 px-4">
+      <section className="cg-container bg-background py-12">
         <h2 className="text-center text-accent font-semibold text-sm md:text-base mb-10 tracking-widest uppercase">
           How We Make Gaming Better
         </h2>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-0 max-w-4xl mx-auto">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-10 md:flex-row md:gap-0">
           {/* Step 1 */}
           <div className="flex flex-col items-center text-center flex-1">
             <div className="bg-accent/20 rounded-full p-3 mb-3">
@@ -113,7 +115,7 @@ export default function AboutView() {
       </section>
 
       {/* Our Mission */}
-      <section id="mission" className="py-14 px-4 bg-background">
+      <section id="mission" className="cg-container py-10">
         <h2 className="text-center text-accent font-semibold text-sm md:text-base mb-3 tracking-widest uppercase">
           Our Mission
         </h2>
@@ -127,7 +129,7 @@ export default function AboutView() {
           to competitive pros. We know what it takes to level up your gaming
           experience, and we’re here to make sure you have the tools to do it.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 border-2 border-accent rounded-2xl overflow-hidden max-w-5xl mx-auto divide-y-2 md:divide-y-0 md:divide-x-2 divide-accent bg-white dark:bg-background">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 overflow-hidden border-2 border-accent bg-white divide-y-2 divide-accent dark:bg-background md:grid-cols-2 md:divide-x-2">
           {/* By Gamers, For Gamers */}
           <Item className="flex flex-col items-center justify-center text-center h-full p-8 bg-white dark:bg-background text-foreground">
             <div className="flex items-center justify-center mb-3 gap-3">
@@ -186,6 +188,17 @@ export default function AboutView() {
               everyone feels welcome.
             </div>
           </Item>
+        </div>
+      </section>
+      <section className="cg-container py-8">
+        <div className="flex min-h-[300px] items-center justify-between overflow-hidden rounded-md border-2 border-sky-500 bg-[#d8d3ef] p-8 shadow-md md:p-10">
+          <div className="w-full md:w-3/5">
+            <div className="mb-5 w-fit bg-primary px-4 py-2 text-xs font-semibold text-white">Subscribe To Us</div>
+            <h2 className="text-3xl font-bold text-black md:text-4xl">Stay Ahead of the <span className="text-accent">Game!</span></h2>
+            <p className="my-5 text-sm text-black md:text-base">Subscribe to our newsletter and be the first to know about exclusive deals, new arrivals, and gaming tips. Plus, enjoy 10% off your next order when you sign up!</p>
+            <div className="flex max-w-xl"><Input type="email" aria-label="Newsletter email" placeholder="Your Email" className="h-12 rounded-r-none border-0 bg-white text-black" /><Button className="h-12 rounded-l-none px-6">Subscribe</Button></div>
+          </div>
+          <div className="relative hidden h-[230px] w-2/5 md:block"><Image src="/news.svg" alt="Gaming newsletter" fill className="object-contain" /></div>
         </div>
       </section>
       <Faqs />

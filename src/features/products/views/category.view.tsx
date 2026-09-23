@@ -1,4 +1,6 @@
 import { CategoryProductGrid } from "@/features/products/components/category-product-grid.component";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import type {
   CategoryPageData,
   ProductFilterConfig,
@@ -24,12 +26,11 @@ export default function CategoryView({
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 pt-28">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">{category.name}</h1>
-        {category.description && (
-          <p className="text-gray-600 mt-2">{category.description}</p>
-        )}
+    <div className="cg-container pb-8 pt-28">
+      <div className="mb-7 flex items-center gap-2 text-sm text-muted-foreground">
+        <Link href="/" className="hover:text-accent">Home</Link>
+        <ChevronRight className="h-4 w-4" />
+        <span>{category.name}</span>
       </div>
 
       <CategoryProductGrid

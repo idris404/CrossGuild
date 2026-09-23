@@ -1,7 +1,15 @@
 import React from "react";
+import { TopSellingGamingGear } from "@/shared/components/TopSellingGamingGear";
 
 const RelatedProducts = () => {
-  return <div></div>;
+  return (
+    <TopSellingGamingGear
+      title="Recently Viewed"
+      highlightedText="Products"
+      showLink={false}
+      sectionId="recently-viewed"
+    />
+  );
 };
 
 export default RelatedProducts;

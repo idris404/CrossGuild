@@ -14,7 +14,7 @@ export default function ProductInfo({
 }: ProductInfoProps) {
   return (
     <div className="relative z-10">
-      <nav className="text-sm text-muted-foreground mb-6 bg-muted/20 px-4 py-2 rounded-full inline-block backdrop-blur-sm border border-accent/10">
+      <nav className="mb-8 inline-block text-sm text-muted-foreground">
         <span className="hover:text-accent transition-colors cursor-pointer">
           Home
         </span>
@@ -26,24 +26,24 @@ export default function ProductInfo({
         <span className="text-foreground font-medium">{product.name}</span>
       </nav>
 
-      <h1 className="text-4xl font-black bg-gradient-to-r from-foreground via-foreground to-accent bg-clip-text text-transparent leading-tight mb-4">
+      <h1 className="mb-3 text-3xl font-bold leading-tight text-foreground md:text-4xl">
         {product.name}
       </h1>
 
-      <div className="flex items-center mt-4 mb-6">
+      <div className="mb-4 mt-2 flex items-center">
         {product.reviews && product.reviews.length > 0 && (
-          <div className="flex items-center bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 px-4 py-2 rounded-full border border-yellow-200 dark:border-yellow-800">
+          <div className="flex items-center">
             {Array.from({ length: 5 }).map((_, index) => (
               <Star
                 key={index}
                 className={`h-5 w-5 transition-all duration-200 ${
                   index < Math.round(averageRating)
-                    ? "text-yellow-500 fill-yellow-500 drop-shadow-sm"
+                    ? "fill-primary text-primary"
                     : "text-gray-300"
                 }`}
               />
             ))}
-            <span className="ml-3 text-sm font-bold text-yellow-700 dark:text-yellow-300">
+            <span className="ml-3 text-sm font-bold text-foreground">
               {averageRating.toFixed(1)}
             </span>
             <span className="ml-2 text-sm text-muted-foreground">
@@ -54,50 +54,27 @@ export default function ProductInfo({
         )}
       </div>
 
-      {product.brand && (
-        <div className="mb-4">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20">
-            <span className="w-2 h-2 bg-primary rounded-full mr-2" />
-            {product.brand.name}
-          </span>
-        </div>
-      )}
+      {product.brand && <p className="mb-4 text-base text-muted-foreground">Type : {product.brand.name}</p>}
 
-      <div className="mb-6">
-        <div className="relative inline-block">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 rounded-2xl blur-lg" />
-          <p className="relative text-4xl font-black bg-gradient-to-r from-accent via-accent to-primary bg-clip-text text-transparent px-6 py-3">
-            {product.price} €
-          </p>
-        </div>
+      <div className="mb-5">
+        <p className="leading-relaxed text-muted-foreground">{product.description}</p>
       </div>
 
-      <div className="mb-8">
-        <div className="bg-muted/30 backdrop-blur-sm rounded-2xl p-6 border border-accent/10">
-          <h3 className="text-lg font-semibold mb-3 text-foreground">
-            Description
-          </h3>
-          <p className="text-muted-foreground leading-relaxed">
-            {product.description}
-          </p>
-        </div>
-      </div>
+      <p className="mb-5 text-3xl font-bold text-foreground">{product.price.toFixed(2).replace(".", ",")}€</p>
 
-      <div className="mb-6">
-        <div className="flex items-center gap-3">
+      <div className="mb-4">
+        <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
             <div
               className={`w-3 h-3 rounded-full ${product.quantity > 0 ? "bg-green-500" : "bg-red-500"}`}
             />
-            <span className="text-sm font-medium text-muted-foreground">
-              Stock:
-            </span>
+            <span className="text-sm font-medium text-muted-foreground">Stock:</span>
           </div>
           <span
-            className={`font-bold px-3 py-1 rounded-full text-sm ${
+            className={`text-sm font-semibold ${
               product.quantity > 0
-                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                ? "text-green-700 dark:text-green-400"
+                : "text-red-700 dark:text-red-400"
             }`}
           >
             {product.quantity > 0

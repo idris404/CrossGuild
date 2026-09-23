@@ -94,20 +94,18 @@ export function ProductFilters({
   });
 
   return (
-    <aside className="w-full md:w-1/4 space-y-6">
+    <aside className="w-full space-y-6 md:w-1/4 md:border-r md:border-muted-foreground/40 md:pr-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">
-          {contextLabel ? `Filters for ${contextLabel}` : "Filters"}
-        </h2>
-        <Button variant="outline" size="sm" onClick={clearAllFilters}>
-          Clear All
+        <h2 className="text-base font-medium text-muted-foreground">{contextLabel || "Filters"}</h2>
+        <Button variant="outline" size="sm" onClick={clearAllFilters} className="rounded-full border-primary">
+          Delete all
         </Button>
       </div>
 
       <div className="space-y-3">
-        <h3 className="font-medium">Sort By</h3>
+        <h3 className="font-bold text-accent underline underline-offset-4">Sort By</h3>
         <Select value={sortBy} onValueChange={setSortBy}>
-          <SelectTrigger>
+          <SelectTrigger className="border-primary">
             <SelectValue placeholder="Select sorting" />
           </SelectTrigger>
           <SelectContent>
@@ -123,7 +121,7 @@ export function ProductFilters({
 
       {uniqueBrands.length > 0 && (
         <div className="space-y-3">
-          <h3 className="font-medium">Brands</h3>
+          <h3 className="font-bold text-accent underline underline-offset-4">Brands</h3>
           <div className="space-y-2 max-h-40 overflow-y-auto">
             {uniqueBrands.map((brand) => (
               <div key={brand} className="flex items-center space-x-2">
@@ -148,7 +146,7 @@ export function ProductFilters({
 
       {showCategoryFilter && (
         <div className="space-y-3">
-          <h3 className="font-medium">Category</h3>
+          <h3 className="font-bold text-accent underline underline-offset-4">Category</h3>
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
             <SelectTrigger>
               <SelectValue />
@@ -166,7 +164,7 @@ export function ProductFilters({
       )}
 
       <div className="space-y-3">
-        <h3 className="font-medium">Price Range</h3>
+        <h3 className="font-bold text-accent underline underline-offset-4">Price</h3>
         <div className="px-2">
           <Slider
             value={priceRange}
@@ -176,15 +174,15 @@ export function ProductFilters({
             step={1}
             className="w-full"
           />
-          <div className="flex justify-between text-sm text-gray-500 mt-2">
-            <span>${priceRange[0]}</span>
-            <span>${priceRange[1]}</span>
+          <div className="mt-3 flex justify-between gap-3 text-sm text-gray-500">
+            <span className="rounded border bg-background px-3 py-2">{priceRange[0]} €</span>
+            <span className="rounded border bg-background px-3 py-2">{priceRange[1]} €</span>
           </div>
         </div>
       </div>
 
       <div className="space-y-3">
-        <h3 className="font-medium">Availability</h3>
+        <h3 className="font-bold text-accent underline underline-offset-4">Availability</h3>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -210,7 +208,7 @@ export function ProductFilters({
       </div>
 
       <div className="space-y-3">
-        <h3 className="font-medium">Minimum Rating</h3>
+          <h3 className="font-bold text-accent underline underline-offset-4">Minimum Rating</h3>
         <StarRating rating={selectedRating} onRatingClick={setSelectedRating} />
       </div>
     </aside>

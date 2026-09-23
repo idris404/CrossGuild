@@ -10,23 +10,11 @@ export default async function HomeView() {
   const session = await auth();
 
   return (
-    <div className="flex flex-col bg-gradient-to-b from-background via-background to-purple-50/10 dark:to-purple-950/5">
+    <div className="flex flex-col bg-background">
       <HeroSection />
-
-      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-8"></div>
-
       <TopSellingGamingGear />
-
-      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-8"></div>
-
       <ReviewTestimonials />
-
-      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-8"></div>
-
       <Offres />
-
-      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-8"></div>
-
       <Faqs />
     </div>
   );

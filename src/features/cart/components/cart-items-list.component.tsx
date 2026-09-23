@@ -12,7 +12,6 @@ import {
   TableRow,
 } from "@/shared/components/ui/table";
 import { Button } from "@/shared/components/ui/button";
-import { Badge } from "@/shared/components/ui/badge";
 import type { CartItem } from "@/features/cart/types/cart.type";
 
 interface CartItemsListProps {
@@ -40,16 +39,15 @@ export function CartItemsList({
   };
 
   return (
-    <div className="bg-card rounded-lg shadow-sm p-4 border dark:border-border dark:shadow-none overflow-x-auto">
+    <div className="overflow-x-auto bg-transparent">
       <Table>
         <TableHeader>
-          <TableRow className="bg-muted/30 dark:bg-muted/10 hover:bg-muted/40 dark:hover:bg-muted/20">
-            <TableHead className="text-accent font-bold">Product</TableHead>
-            <TableHead className="text-accent font-bold">Price</TableHead>
-            <TableHead className="text-accent font-bold">Details</TableHead>
-            <TableHead className="text-accent font-bold">Quantity</TableHead>
-            <TableHead className="text-accent font-bold">Total</TableHead>
-            <TableHead className="text-accent font-bold">Actions</TableHead>
+          <TableRow className="border-b border-primary hover:bg-transparent">
+            <TableHead className="font-bold uppercase text-accent">Product</TableHead>
+            <TableHead className="font-bold uppercase text-accent">Price</TableHead>
+            <TableHead className="font-bold uppercase text-accent">Quantity</TableHead>
+            <TableHead className="font-bold uppercase text-accent">Total</TableHead>
+            <TableHead className="text-center font-bold uppercase text-accent">Delete</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -65,7 +63,7 @@ export function CartItemsList({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="group hover:bg-muted/20 dark:hover:bg-muted/10"
+                  className="group border-b border-primary/60 hover:bg-purple-50/40 dark:hover:bg-accent/5"
                   layout
                 >
                   <TableCell>
@@ -79,7 +77,7 @@ export function CartItemsList({
                           <motion.img
                             src={item.images[0]?.url}
                             alt={item.name}
-                            className="w-20 h-20 object-cover mr-4 rounded-md"
+                            className="mr-4 h-24 w-28 object-contain"
                             onError={() => handleImageError(item.id)}
                             initial={{ opacity: 0.6 }}
                             animate={{ opacity: 1 }}
@@ -87,37 +85,24 @@ export function CartItemsList({
                             transition={{ duration: 0.2 }}
                           />
                         )}
-                        {!imageErrors[item.id] && item.images.length > 1 && (
-                          <Badge
-                            variant="secondary"
-                            className="absolute -top-2 -right-2 z-10 dark:bg-accent/30 dark:text-foreground"
-                          >
-                            +{item.images.length - 1}
-                          </Badge>
-                        )}
                       </div>
                       <div className="max-w-xs">
-                        <h3 className="font-medium text-lg hover:text-accent cursor-pointer transition-colors">
+                        <h3 className="cursor-pointer text-base font-semibold transition-colors hover:text-accent">
                           {item.name}
                         </h3>
+                        {item.options?.map((option, idx) => (
+                          <p key={idx} className="mt-1 text-xs text-muted-foreground">{option.name}: {option.values.join(", ")}</p>
+                        ))}
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>{item.price.toFixed(2)} €</TableCell>
                   <TableCell>
-                    {item.options?.map((option, idx) => (
-                      <p key={idx} className="text-sm text-muted-foreground">
-                        <span className="font-semibold">{option.name}:</span>{" "}
-                        {option.values.join(", ")}
-                      </p>
-                    ))}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex w-fit items-center overflow-hidden rounded-md bg-muted">
                       <Button
                         variant="outline"
                         size="icon"
-                        className="h-8 w-8 border-accent text-accent hover:bg-accent hover:text-accent-foreground dark:border-accent dark:text-accent dark:hover:bg-accent dark:hover:text-accent-foreground transition-all"
+                        className="h-8 w-8 rounded-none border-0 bg-transparent text-foreground shadow-none hover:bg-primary/30 hover:text-foreground"
                         onClick={() =>
                           onUpdateQuantity(
                             item.id,
@@ -134,7 +119,7 @@ export function CartItemsList({
                       <Button
                         variant="outline"
                         size="icon"
-                        className="h-8 w-8 border-accent text-accent hover:bg-accent hover:text-accent-foreground dark:border-accent dark:text-accent dark:hover:bg-accent dark:hover:text-accent-foreground transition-all"
+                        className="h-8 w-8 rounded-none border-0 bg-transparent text-foreground shadow-none hover:bg-primary/30 hover:text-foreground"
                         onClick={() =>
                           onUpdateQuantity(item.id, item.quantity + 1)
                         }
@@ -144,14 +129,14 @@ export function CartItemsList({
                       </Button>
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-center">
                     {(item.price * item.quantity).toFixed(2)} €
                   </TableCell>
                   <TableCell>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="text-red-500 hover:text-white hover:bg-red-500 dark:text-red-400 dark:hover:bg-red-900 transition-colors"
+                      className="text-foreground hover:bg-red-50 hover:text-red-600 dark:text-foreground dark:hover:bg-red-950"
                       onClick={() => onRemoveItem(item.id)}
                       disabled={isUpdating}
                     >

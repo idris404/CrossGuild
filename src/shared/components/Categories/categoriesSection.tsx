@@ -36,23 +36,21 @@ const CategoriesSection = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="container mx-auto py-8">Chargement...</div>;
+    return <div className="cg-container h-80 animate-pulse bg-muted/30" />;
   }
 
   return (
-    <div id="categories" className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold text-accent text-center mb-12">
-        Categories
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section id="categories" className="cg-container cg-section">
+      <h1 className="mb-8 text-center text-lg font-bold uppercase text-accent">Categories</h1>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {categories.map((category) => (
           <Link
             href={`/categories/${formatCategorySlug(category.name)}`}
             key={category.id}
           >
-            <Card className="overflow-hidden shadow-md border-4 cursor-pointer p-4 hover:border-accent transition-colors">
-              <CardContent className="p-4 flex flex-col items-center">
-                <div className="relative w-full aspect-square max-w-[200px]">
+            <Card className="group flex min-h-[245px] cursor-pointer flex-col overflow-hidden border-2 border-primary p-3 transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
+              <CardContent className="flex flex-col items-center p-3 pb-0">
+                <div className="relative h-[155px] w-full">
                   {" "}
                   <Image
                     src={category.image || "/images/placeholder-product.svg"}
@@ -69,8 +67,8 @@ const CategoriesSection = () => {
                   />
                 </div>
               </CardContent>
-              <CardFooter className="p-2">
-                <h3 className="text-lg mx-auto font-semibold">
+              <CardFooter className="mt-auto p-3">
+                <h3 className="mx-auto text-xl font-semibold text-[#4c4764] transition-colors group-hover:text-accent">
                   {category.name}
                 </h3>
               </CardFooter>
@@ -78,7 +76,7 @@ const CategoriesSection = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -29,15 +29,13 @@ const Brands = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="container mx-auto py-8">Chargement...</div>;
+    return <div className="cg-container h-40 animate-pulse bg-muted/30" />;
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold text-accent text-center mb-12">
-        Brands
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section className="cg-container cg-section pt-4">
+      <h1 className="mb-8 text-center text-lg font-bold uppercase text-accent">Popular Brands</h1>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {brands.map((brand) => {
           // Générer un slug basé sur le nom si aucun slug n'existe
           const brandSlug =
@@ -49,9 +47,9 @@ const Brands = () => {
               href={`/brands/${brandSlug}`}
               className="block"
             >
-              <Card className="overflow-hidden shadow-md border-4 cursor-pointer p-2 hover:border-accent transition">
-                <CardContent className="p-2 flex flex-col items-center">
-                  <div className="relative w-full aspect-square max-w-[150px]">
+              <Card className="flex h-[145px] cursor-pointer items-center overflow-hidden border-2 border-primary p-3 transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
+                <CardContent className="flex w-full flex-col items-center p-2">
+                  <div className="relative h-[95px] w-full">
                     {" "}
                     <Image
                       src={brand.logo || "/images/placeholder-product.svg"}
@@ -67,24 +65,13 @@ const Brands = () => {
                       }}
                     />
                   </div>
-                  <div className="mt-4 text-center">
-                    <h2 className="font-bold text-lg">{brand.name}</h2>
-                    {brand.description && (
-                      <p className="text-muted-foreground text-sm mt-1">
-                        {brand.description}
-                      </p>
-                    )}
-                    <p className="text-xs text-gray-500 mt-2">
-                      {brand.itemCount} products
-                    </p>
-                  </div>
                 </CardContent>
               </Card>
             </Link>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

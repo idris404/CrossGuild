@@ -121,12 +121,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
       variants={slideFromBottom}
       transition={{ duration: 0.5 }}
     >
-      <Card className="text-center border-4 shadow-md relative">
+      <Card className="group relative flex h-full min-h-[350px] flex-col overflow-hidden border-2 border-primary bg-white text-center transition-[border-color,box-shadow] duration-200 hover:border-accent hover:shadow-lg dark:bg-card">
         {/* Wishlist button - positioned absolute in the top right corner */}
         <button
           onClick={handleAddToWishlist}
           disabled={isAddingToWishlist}
-          className="absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+          className="absolute right-2 top-2 z-10 rounded-full border border-primary/50 bg-white p-2 opacity-0 shadow-sm transition-all hover:border-accent hover:bg-purple-50 focus-visible:opacity-100 group-hover:opacity-100"
           aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
           title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
@@ -142,9 +142,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
           />
         </button>
 
-        <CardHeader className="pb-0">
+        <CardHeader className="p-4 pb-0">
           {" "}
-          <div className="relative w-full h-[200px] flex items-center justify-center p-4">
+          <div className="relative flex h-[170px] w-full items-center justify-center p-2">
             <Image
               src={item.images[0]?.url || "/images/placeholder-product.svg"}
               alt={item.name}
@@ -159,16 +159,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
               }}
             />
           </div>
-          <CardTitle className="text-xl text-left font-semibold truncate">
+          <CardTitle className="min-h-10 text-left text-base font-bold leading-5">
             {item.name}
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-0 pl-6 text-left">
+        <CardContent className="px-4 pb-0 text-left">
           <div className="flex justify-left items-center my-2">
             {Array.from({ length: 5 }, (_, i) => (
               <span
                 key={i}
-                className={`text-xl ${
+                className={`text-lg ${
                   i < Math.round(item.averageRating || 0)
                     ? "text-secondary"
                     : "text-gray-300"
@@ -177,21 +177,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                 ★
               </span>
             ))}
-            <span className="ml-1 text-xs text-muted-foreground">
-              ({item.averageRating?.toFixed(1) || "0.0"})
-            </span>{" "}
           </div>
-          <p className="text-gray-600">{item.brand?.name}</p>
-          <p className="text-lg font-bold">{item.price} €</p>
-          <p className="text-sm text-gray-500">
-            {item.quantity > 0 ? `In Stock: ${item.quantity}` : "Out of Stock"}
-          </p>
+          <p className="text-base font-bold">{item.price.toFixed(2).replace(".", ",")}€</p>
         </CardContent>
-        <CardFooter className="mt-4 flex flex-col justify-center gap-2">
+        <CardFooter className="mt-auto flex flex-col justify-center gap-2 p-4 pt-3">
           {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
           <div className="flex justify-center gap-2">
             <Button
-              className="bg-accent px-4 py-2 text-sm shadow-md"
+              className="h-10 bg-accent px-4 text-sm shadow-md hover:bg-[#4f38d8]"
               onClick={handleBuyNow}
               disabled={isLoading || item.quantity <= 0}
             >
@@ -200,13 +193,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
             <Link href={`/product/${item.slug}`}>
               <Button
                 variant="outline"
-                className="px-4 py-2 border-primary border-2 hover:text-white text-sm shadow-md"
+                className="h-10 border-2 border-primary px-4 text-sm shadow-none hover:border-accent hover:bg-accent hover:text-white"
               >
                 Learn More
               </Button>
             </Link>
           </div>
-          <div className="mt-2 w-full"></div>
         </CardFooter>
       </Card>
     </motion.div>
