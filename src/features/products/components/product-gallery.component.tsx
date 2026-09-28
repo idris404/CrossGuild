@@ -43,40 +43,41 @@ export default function ProductGallery({
 
   return (
     <div className="relative w-full max-w-[500px]">
+      <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_118px] md:items-start">
+        <div
+          ref={imageRef}
+          className="relative aspect-square cursor-zoom-in overflow-hidden rounded-md border-2 border-accent bg-background transition-colors hover:border-[#4f38d8]"
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setScale(1.15)}
+          onMouseLeave={() => setScale(1)}
+        >
+          {product.images[selectedImageIndex] && (
+            <div className="relative h-full w-full">
+              <Image
+                src={product.images[selectedImageIndex].url}
+                alt={product.name}
+                fill
+                className="object-contain p-6 transition-transform duration-200"
+                style={{
+                  transform: scale > 1 ? `scale(${scale})` : "none",
+                  transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+                }}
+              />
+            </div>
+          )}
+        </div>
 
-      <div
-        ref={imageRef}
-        className="relative aspect-square cursor-zoom-in overflow-hidden rounded-md border-2 border-accent bg-background transition-colors hover:border-[#4f38d8]"
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setScale(1.15)}
-        onMouseLeave={() => setScale(1)}
-      >
-        {product.images[selectedImageIndex] && (
-          <div className="relative w-full h-full">
-            <Image
-              src={product.images[selectedImageIndex].url}
-              alt={product.name}
-              fill
-                  className="object-contain p-6 transition-transform duration-200"
-              style={{
-                transform: scale > 1 ? `scale(${scale})` : "none",
-                transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
-              }}
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="relative mt-4">
+        <div className="relative md:mt-0">
         {startIndex > 0 && (
           <button
             onClick={() => setStartIndex((prev) => prev - 1)}
-            className="absolute -left-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-primary bg-background p-2 shadow-sm hover:bg-purple-50"
+            className="absolute -left-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-primary bg-background p-2 shadow-sm hover:bg-purple-50 md:left-1/2 md:top-0 md:-translate-x-1/2 md:-translate-y-1/2"
+            aria-label="Previous product image"
           >
-            <ChevronLeft className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+            <ChevronLeft className="h-5 w-5 text-primary transition-transform group-hover:scale-110 md:rotate-90" />
           </button>
         )}
-        <div className="grid grid-cols-4 gap-3 px-7">
+        <div className="grid grid-cols-4 gap-3 px-7 md:grid-cols-1 md:px-0">
           {product.images.slice(startIndex, startIndex + 4).map((image, index) => {
             const imageIndex = startIndex + index;
             return (
@@ -105,11 +106,13 @@ export default function ProductGallery({
         {startIndex + 4 < product.images.length && (
           <button
             onClick={() => setStartIndex((prev) => prev + 1)}
-            className="absolute -right-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-primary bg-background p-2 shadow-sm hover:bg-purple-50"
+            className="absolute -right-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-primary bg-background p-2 shadow-sm hover:bg-purple-50 md:bottom-0 md:left-1/2 md:right-auto md:top-auto md:-translate-x-1/2 md:translate-y-1/2"
+            aria-label="Next product image"
           >
-            <ChevronRight className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+            <ChevronRight className="h-5 w-5 text-primary transition-transform group-hover:scale-110 md:rotate-90" />
           </button>
         )}
+        </div>
       </div>
 
       <div className="mt-5 space-y-4">
