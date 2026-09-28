@@ -6,7 +6,7 @@ export default function ContactView() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <div className="relative mt-20 h-[300px] w-full">
+      <div className="relative h-[300px] w-full">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{

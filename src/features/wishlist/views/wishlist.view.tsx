@@ -29,7 +29,7 @@ export default function WishlistView() {
 
   if (!isAuthenticated) {
     return (
-      <div className="container mx-auto px-4 py-8 pt-28">
+      <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto text-center py-12 bg-muted/50 rounded-lg dark:bg-muted/10 border dark:border-border">
           <Heart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
           <p className="text-xl mb-4">Sign in to view your wishlist</p>
@@ -46,7 +46,7 @@ export default function WishlistView() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 pt-28">
+    <div className="container mx-auto px-4 py-8">
       <div className="p-4 max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -10 }}

@@ -57,8 +57,11 @@ export default function CartView() {
 
   if (!isAuthenticated) {
     return (
-      <div className="container mx-auto px-4 py-8 pt-28">
-        <div className="max-w-6xl mx-auto text-center py-12 bg-muted/50 rounded-lg dark:bg-muted/10 border dark:border-border">
+      <div className="cg-container py-8">
+        <div className="mx-auto mb-7 max-w-6xl text-sm text-muted-foreground">
+          Home <span className="mx-2">›</span> Cart
+        </div>
+        <div className="mx-auto max-w-6xl border bg-muted/50 py-12 text-center dark:border-border dark:bg-muted/10">
           <ShoppingCart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
           <p className="text-xl mb-4">Sign in to view your cart</p>
           <Button
@@ -74,7 +77,7 @@ export default function CartView() {
   }
 
   return (
-    <div className="cg-container pb-8 pt-28">
+    <div className="cg-container py-8">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: -10 }}

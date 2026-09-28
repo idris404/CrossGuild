@@ -12,7 +12,7 @@ interface BrandViewProps {
 
 export default function BrandView({ brand, filterConfig }: BrandViewProps) {
   return (
-    <div className="container mx-auto px-4 py-8 pt-28">
+    <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row items-center gap-8 mb-12 p-6 rounded-lg shadow-md bg-card">
         <div className="relative w-40 h-40">
           <Image

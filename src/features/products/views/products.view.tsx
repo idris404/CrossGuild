@@ -21,7 +21,7 @@ export default function ProductsView({ items, filterConfig }: ProductsViewProps)
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 pt-28">
+    <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold">All Products</h1>
         <p className="text-gray-600 mt-2">

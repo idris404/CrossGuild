@@ -33,7 +33,7 @@ function ProfileContent() {
   }
 
   return (
-    <div className="cg-container pb-10 pt-28">
+    <div className="cg-container pb-10 pt-20">
       <div className="mb-7 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-accent">Home</Link> <span className="mx-2">›</span> Account
       </div>

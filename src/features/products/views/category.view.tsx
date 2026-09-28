@@ -26,7 +26,7 @@ export default function CategoryView({
   }
 
   return (
-    <div className="cg-container pb-8 pt-28">
+    <div className="cg-container py-8">
       <div className="mb-7 flex items-center gap-2 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-accent">Home</Link>
         <ChevronRight className="h-4 w-4" />
