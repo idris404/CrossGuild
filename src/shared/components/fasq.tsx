@@ -18,7 +18,7 @@ import arrow from "@/public/Vector.png";
 import { toast } from "sonner";
 
 const Faqs = () => {
-  const [openItem, setOpenItem] = useState<string | null>(null);
+  const [openItem, setOpenItem] = useState<string | null>("default-1");
   const [messageSent, setMessageSent] = useState(false);
   const [question, setQuestion] = useState("");
   const [faqs, setFaqs] = useState<PublishedFaq[]>([]);
@@ -30,8 +30,10 @@ const Faqs = () => {
       try {
         const publishedFaqs = await fetchPublishedFaqs();
         setFaqs(publishedFaqs);
+        setOpenItem(publishedFaqs[0]?.id || "default-1");
       } catch {
         setFaqs([]);
+        setOpenItem("default-1");
       } finally {
         setLoading(false);
       }
@@ -39,10 +41,6 @@ const Faqs = () => {
 
     loadFaqs();
   }, []);
-
-  const handleToggle = (item: string) => {
-    setOpenItem(openItem === item ? null : item);
-  };
 
   const handleSend = async () => {
     if (!question.trim()) {
@@ -77,7 +75,7 @@ const Faqs = () => {
       id: "default-1",
       question: "WHAT MAKES YOUR STORE DIFFERENT FROM OTHERS?",
       answer:
-        "Our AI leverages advanced algorithms to ensure relevance and creativity.",
+        "We are passionate gamers ourselves, which means we know exactly what you need. Every product we offer is carefully selected and tested by gamers, for gamers. Our goal is to provide you with the best gear to enhance your gaming experience.",
       isPublished: true,
     },
     {
@@ -119,7 +117,13 @@ const Faqs = () => {
       </motion.div>
 
       {/* Accordion Section */}
-      <Accordion type="single" collapsible className="space-y-6">
+      <Accordion
+        type="single"
+        collapsible
+        value={openItem ?? undefined}
+        onValueChange={(value) => setOpenItem(value || null)}
+        className="space-y-6"
+      >
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
@@ -144,7 +148,6 @@ const Faqs = () => {
               >
                 <AccordionTrigger
                   className="flex min-h-16 w-full items-center justify-between bg-background p-5 text-left text-base font-bold transition-colors hover:bg-purple-50 dark:hover:bg-accent/10 sm:text-lg"
-                  onClick={() => handleToggle(faq.id)}
                 >
                   <span className="pr-4">
                     {typeof faq.question === "string"
