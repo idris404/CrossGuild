@@ -110,11 +110,11 @@ const ProductCompare = () => {
 
   if (products.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-4">Product Comparison</h1>
-        <Card>
-          <CardContent className="p-6 text-center">
-            <p className="mb-4">
+      <div className="mx-auto max-w-6xl">
+        <h1 className="mb-4 text-2xl font-bold">Product Comparison</h1>
+        <Card className="transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
+          <CardContent className="p-10 text-center">
+            <p className="mb-5">
               You haven&apos;t added any products to compare yet.
             </p>
             <Button asChild>
@@ -127,8 +127,8 @@ const ProductCompare = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
+    <div className="mx-auto max-w-6xl">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Product Comparison</h1>
         <Button variant="outline" onClick={clearAll}>
           Clear All

@@ -61,12 +61,11 @@ export default function CartView() {
         <div className="mx-auto mb-7 max-w-6xl text-sm text-muted-foreground">
           Home <span className="mx-2">›</span> Cart
         </div>
-        <div className="mx-auto max-w-6xl border bg-muted/50 py-12 text-center dark:border-border dark:bg-muted/10">
-          <ShoppingCart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-          <p className="text-xl mb-4">Sign in to view your cart</p>
+        <div className="mx-auto max-w-6xl rounded-md border-2 border-primary bg-background py-12 text-center shadow-[0_3px_5px_rgba(0,0,0,0.18)] transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
+          <ShoppingCart className="mx-auto mb-4 h-16 w-16 text-primary" />
+          <p className="mb-4 text-xl">Sign in to view your cart</p>
           <Button
             onClick={() => router.push("/login?callbackUrl=/cart")}
-            className="bg-accent text-accent-foreground hover:bg-accent/90"
             size="lg"
           >
             Sign In
@@ -93,16 +92,15 @@ export default function CartView() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-center py-12 bg-muted/50 rounded-lg dark:bg-muted/10 border dark:border-border"
+            className="rounded-md border-2 border-primary bg-background py-12 text-center shadow-[0_3px_5px_rgba(0,0,0,0.18)] transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg"
           >
-            <ShoppingCart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <p className="text-xl mb-4">Your cart is empty</p>
-            <p className="text-muted-foreground mb-6">
+            <ShoppingCart className="mx-auto mb-4 h-16 w-16 text-primary" />
+            <p className="mb-4 text-xl">Your cart is empty</p>
+            <p className="mb-6 text-muted-foreground">
               Add items to your cart to proceed with checkout
             </p>
             <Button
               onClick={() => router.push("/")}
-              className="bg-accent text-accent-foreground hover:bg-accent/90"
               size="lg"
             >
               Continue Shopping

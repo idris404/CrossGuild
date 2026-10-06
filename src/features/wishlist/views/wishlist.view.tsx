@@ -29,13 +29,12 @@ export default function WishlistView() {
 
   if (!isAuthenticated) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto text-center py-12 bg-muted/50 rounded-lg dark:bg-muted/10 border dark:border-border">
-          <Heart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-          <p className="text-xl mb-4">Sign in to view your wishlist</p>
+      <div className="cg-container py-8">
+        <div className="mx-auto max-w-6xl rounded-md border-2 border-primary bg-background py-12 text-center shadow-[0_3px_5px_rgba(0,0,0,0.18)] transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
+          <Heart className="mx-auto mb-4 h-16 w-16 text-primary" />
+          <p className="mb-4 text-xl">Sign in to view your wishlist</p>
           <Button
             onClick={() => router.push("/login?callbackUrl=/wishlist")}
-            className="bg-accent text-accent-foreground hover:bg-accent/90"
             size="lg"
           >
             Sign In
@@ -46,8 +45,8 @@ export default function WishlistView() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="p-4 max-w-6xl mx-auto">
+    <div className="cg-container py-8">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}

@@ -110,16 +110,15 @@ export function WishlistGrid({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="text-center py-12 bg-muted/50 rounded-lg dark:bg-muted/10 border dark:border-border"
+        className="rounded-md border-2 border-primary bg-background py-12 text-center shadow-[0_3px_5px_rgba(0,0,0,0.18)] transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg"
       >
-        <Heart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-        <p className="text-xl mb-4">Your wishlist is empty</p>
-        <p className="text-muted-foreground mb-6">
+        <Heart className="mx-auto mb-4 h-16 w-16 text-primary" />
+        <p className="mb-4 text-xl">Your wishlist is empty</p>
+        <p className="mb-6 text-muted-foreground">
           Add items to your wishlist to save them for later
         </p>
         <Button
           onClick={() => router.push("/")}
-          className="bg-accent text-accent-foreground hover:bg-accent/90"
           size="lg"
         >
           Continue Shopping
