@@ -73,7 +73,7 @@ export default function FooterSection() {
             </div>
             <h3 className="mb-3 text-base font-bold">Subscribe To NewsLetter</h3>
             <div className="flex">
-              <Input type="email" aria-label="Footer newsletter email" placeholder="Your Email" className="h-9 rounded-r-none border-gray-300 bg-white text-black" />
+              <Input type="email" aria-label="Footer newsletter email" placeholder="Your Email" className="h-9 rounded-r-none bg-white text-black" />
               <Button className="h-9 rounded-l-none px-4 text-xs">Subscribe</Button>
             </div>
             <Image src={paye} alt="Accepted payment methods" width={145} className="mt-4" />

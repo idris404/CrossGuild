@@ -30,15 +30,12 @@ export default function ContactView() {
         </div>
       </div>
 
-      <main
-        className="flex-grow container mx-auto px-4 py-12 pt-16"
-        style={{ paddingTop: "6rem" }}
-      >
+      <main className="cg-container flex-grow py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Contact Info */}
           <div className="lg:col-span-1">
             <div className="space-y-6">
-              <div className="bg-card rounded-lg shadow-md p-6">
+              <div className="rounded-md border-2 border-primary bg-card p-6 shadow-[0_3px_5px_rgba(0,0,0,0.18)] transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">Our Location</h3>
                 <div className="aspect-square w-full overflow-hidden rounded-md mb-4">
                   <iframe
@@ -104,12 +101,12 @@ export default function ContactView() {
                 </div>
               </div>
 
-              <div className="bg-card rounded-lg shadow-md p-6">
+              <div className="rounded-md border-2 border-primary bg-card p-6 shadow-[0_3px_5px_rgba(0,0,0,0.18)] transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">Connect With Us</h3>
                 <div className="flex justify-between">
                   <a
                     href="#"
-                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                    className="rounded-full bg-primary/10 p-3 text-primary transition-colors hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -121,14 +118,14 @@ export default function ContactView() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-primary"
+                      className="text-current"
                     >
                       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                     </svg>
                   </a>
                   <a
                     href="#"
-                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                    className="rounded-full bg-primary/10 p-3 text-primary transition-colors hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +137,7 @@ export default function ContactView() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-primary"
+                      className="text-current"
                     >
                       <rect
                         x="2"
@@ -156,7 +153,7 @@ export default function ContactView() {
                   </a>
                   <a
                     href="#"
-                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                    className="rounded-full bg-primary/10 p-3 text-primary transition-colors hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -168,14 +165,14 @@ export default function ContactView() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-primary"
+                      className="text-current"
                     >
                       <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
                     </svg>
                   </a>
                   <a
                     href="#"
-                    className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                    className="rounded-full bg-primary/10 p-3 text-primary transition-colors hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -187,7 +184,7 @@ export default function ContactView() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-primary"
+                      className="text-current"
                     >
                       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                       <rect x="2" y="9" width="4" height="12"></rect>

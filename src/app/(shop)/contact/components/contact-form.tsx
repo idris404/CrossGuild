@@ -84,7 +84,7 @@ export default function ContactForm() {
   }
 
   return (
-    <Card>
+    <Card className="transition-[border-color,box-shadow] hover:border-accent hover:shadow-lg">
       <CardHeader>
         <CardTitle>Send us a message</CardTitle>
         <CardDescription>
