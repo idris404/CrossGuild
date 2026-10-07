@@ -55,12 +55,16 @@ export function CategoryProductGrid({
       />
 
       <section className="w-full md:w-3/4 md:pl-6">
-        <div className="mb-4 rounded-md border border-primary bg-muted/40 px-4 py-3">
-          <p className="text-sm text-gray-500">{countLabel}</p>
+        <div className="mb-6 flex min-h-12 items-center rounded-md border border-primary bg-muted/20 px-5 py-3">
+          <p className="text-sm text-muted-foreground">{countLabel}</p>
         </div>
 
         {filteredItems.length > 0 ? (
-          <ProductGrid items={filteredItems} variant={variant} />
+          <ProductGrid
+            items={filteredItems}
+            variant={variant}
+            showSearch={variant === "all-products"}
+          />
         ) : (
           <div className="text-center py-12 bg-gray-50 rounded-lg">
             <p className="text-gray-500">{emptyMessage}</p>

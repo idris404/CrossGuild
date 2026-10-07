@@ -10,9 +10,14 @@ import type { ProductListItem } from "@/features/products/types/product.type";
 interface ProductGridProps {
   items: ProductListItem[];
   variant?: "category" | "all-products";
+  showSearch?: boolean;
 }
 
-export function ProductGrid({ items, variant = "category" }: ProductGridProps) {
+export function ProductGrid({
+  items,
+  variant = "category",
+  showSearch = true,
+}: ProductGridProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = variant === "all-products" ? 12 : 9;
@@ -50,21 +55,23 @@ export function ProductGrid({ items, variant = "category" }: ProductGridProps) {
 
   return (
     <div className="space-y-6">
-      <div className="relative rounded-md border border-primary bg-muted/40 p-3">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <Search className="h-4 w-4 text-gray-400" />
+      {showSearch && (
+        <div className="relative rounded-md border border-primary bg-muted/20 p-3">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <Search className="h-4 w-4 text-muted-foreground" />
+          </div>
+          <Input
+            type="text"
+            placeholder={placeholder}
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="border-0 bg-white pl-10 shadow-none dark:bg-card"
+          />
         </div>
-        <Input
-          type="text"
-          placeholder={placeholder}
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
-          }}
-          className="border-0 bg-white pl-10 shadow-none"
-        />
-      </div>
+      )}
 
       {filteredItems.length === 0 ? (
         <div className="text-center py-10">
