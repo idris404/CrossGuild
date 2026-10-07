@@ -57,8 +57,8 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <NavbarUI className="h-20 py-0">
-          <NavbarLeft className="md:w-1/3">
-            <div className="hidden md:flex items-center space-x-6">
+          <NavbarLeft className="lg:w-1/3">
+            <div className="hidden lg:flex items-center space-x-6">
               <Link
                 href="/"
                 className="text-foreground hover:text-accent font-medium transition-colors"
@@ -86,12 +86,12 @@ export const Navbar = () => {
             </div>
           </NavbarLeft>
 
-          <NavbarCenter className="flex items-center md:w-1/3">
+          <NavbarCenter className="flex items-center lg:w-1/3">
             <Link href="/" className="flex items-center justify-center">
               <Image
                 src={theme === "dark" ? logoDark : logo}
                 alt="Logo"
-                className="cursor-pointer h-14 md:h-16 w-auto"
+                className="h-14 w-auto cursor-pointer lg:h-16"
                 priority
                 width={160}
                 height={60}
@@ -99,8 +99,8 @@ export const Navbar = () => {
             </Link>
           </NavbarCenter>
 
-          <NavbarRight className="md:w-1/3 justify-end">
-            <div className="md:hidden flex items-center space-x-3">
+          <NavbarRight className="justify-end lg:w-1/3">
+            <div className="flex items-center space-x-3 lg:hidden">
               <Link href="/cart" className="relative">
                 <ShoppingCart className="w-6 h-6 text-foreground" />
                 {cartItemCount > 0 && (
@@ -131,8 +131,8 @@ export const Navbar = () => {
               </button>
             </div>
 
-            <div className="hidden md:flex items-center space-x-5">
-              <div className="hidden md:block w-full max-w-md mt-1">
+            <div className="hidden items-center space-x-5 lg:flex">
+              <div className="mt-1 hidden w-full max-w-md lg:block">
                 <SearchBar />
               </div>
               <Link href="/wishlist" className="group relative">
@@ -201,7 +201,7 @@ export const Navbar = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-background z-40 pt-20 pb-6 px-6 overflow-y-auto">
+        <div className="fixed inset-0 z-40 overflow-y-auto bg-background px-6 pb-6 pt-20 lg:hidden">
           <div className="flex flex-col space-y-6">
             <div className="pt-2 pb-4">
               <SearchBar />
